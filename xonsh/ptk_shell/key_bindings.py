@@ -25,8 +25,18 @@ from xonsh.tools import (
     ends_with_colon_token,
     get_line_continuation,
 )
+from xonsh.events import events
 
 DEDENT_TOKENS = frozenset(["raise", "return", "pass", "break", "continue"])
+
+events.doc(
+    "on_submit_command",
+    """
+on_submit_command(buffer: Buffer, cli: Application) -> None
+
+Fired when a command is sent to parse and handle
+""",
+)
 
 
 def carriage_return(b, cli, *, autoindent=True):
@@ -78,6 +88,8 @@ def carriage_return(b, cli, *, autoindent=True):
     elif current_line_blank and in_partial_string:
         b.newline(copy_margin=autoindent)
     else:
+        events.on_submit_command.fire(buffer=b, cli=cli)
+
         b.validate_and_handle()
 
 
