@@ -16,7 +16,7 @@
 
 **Fixed:**
 
-* Fixed missing ``webconfig/js/xonsh_sticker.svg`` in ``xonfig web``.
+* platform: fix `BASH_COMPLETIONS_DEFAULT` on M1
 
 **Security:**
 

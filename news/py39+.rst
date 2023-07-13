@@ -1,10 +1,10 @@
 **Added:**
 
-* <news item>
+* Added preliminary support for Python v3.12
 
 **Changed:**
 
-* <news item>
+* Dropped support for Python v3.8
 
 **Deprecated:**
 
@@ -16,7 +16,7 @@
 
 **Fixed:**
 
-* Improve the error message when ``$RAISE_SUBPROC_ERROR`` is set to True.
+* <news item>
 
 **Security:**
 

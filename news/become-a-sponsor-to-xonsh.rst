@@ -1,6 +1,6 @@
 **Added:**
 
-* <news item>
+* Now you can become a sponsor to xonsh - https://github.com/sponsors/xonsh
 
 **Changed:**
 
@@ -16,7 +16,7 @@
 
 **Fixed:**
 
-* Suppress subprocess traceback on exception in case ``$XONSH_SHOW_TRACEBACK=False`` with ``$RAISE_SUBPROC_ERROR=True``.
+* <news item>
 
 **Security:**
 

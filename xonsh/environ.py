@@ -180,7 +180,7 @@ def locale_convert(key):
             val = locale.setlocale(LOCALE_CATS[key])
         except (locale.Error, KeyError):
             msg = f"Failed to set locale {key!r} to {val!r}"
-            warnings.warn(msg, RuntimeWarning)
+            warnings.warn(msg, RuntimeWarning, stacklevel=2)
         return val
 
     return lc_converter
@@ -797,14 +797,14 @@ class Xettings:
     """
 
     @classmethod
-    def get_settings(cls) -> tp.Iterator[tp.Tuple[VarKeyType, Var]]:
+    def get_settings(cls) -> tp.Iterator[tuple[VarKeyType, Var]]:
         for var_name, var in vars(cls).items():
             if not var_name.startswith("__") and var_name.isupper():
                 yield var.get_key(var_name), var
 
     @staticmethod
     def _get_groups(
-        cls, _seen: tp.Optional[tp.Set["Xettings"]] = None, *bases: "Xettings"
+        cls, _seen: tp.Optional[set["Xettings"]] = None, *bases: "Xettings"
     ):
         if _seen is None:
             _seen = set()
@@ -819,9 +819,7 @@ class Xettings:
     @classmethod
     def get_groups(
         cls,
-    ) -> tp.Iterator[
-        tp.Tuple[tp.Tuple["Xettings", ...], tp.Tuple[tp.Tuple[VarKeyType, Var], ...]]
-    ]:
+    ) -> tp.Iterator[tuple[tuple["Xettings", ...], tuple[tuple[VarKeyType, Var], ...]]]:
         yield from Xettings._get_groups(cls)
 
     @classmethod
@@ -1390,7 +1388,7 @@ class PromptSetting(Xettings):
         is_string_or_callable,
         ensure_string,
         ensure_string,
-        "",
+        DefaultNotGiven,
         "Indicator inserted before the line continuation marks set "
         "in ``$MULTILINE_PROMPT``. Can be used to mark the start of "
         "a semantic continuation prompt "
@@ -1402,7 +1400,7 @@ class PromptSetting(Xettings):
         is_string_or_callable,
         ensure_string,
         ensure_string,
-        "",
+        DefaultNotGiven,
         "Indicator inserted after the line continuation marks set "
         "in ``$MULTILINE_PROMPT``. Can be used to mark the end of "
         "a semantic continuation prompt and the beginning of user input "
@@ -1634,7 +1632,9 @@ class PromptHistorySetting(Xettings):
         ensure_string,
         None,
         "Set a filter criteria for history items using a regular expression. "
-        "Any matching items will not be retained in the history.",
+        "Any matching items will not be retained in the history. "
+        "Example: ``$XONSH_HISTORY_IGNORE_REGEX = '(^echo|^.*\\#\\#\\#\\s*|.*\\#\\#\\#\\s*$)'``"
+        " - skip commands that start from ``echo`` or ``###``, or end from ``###``.",
     )
 
 

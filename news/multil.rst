@@ -1,10 +1,10 @@
 **Added:**
 
-* Add support for `Semantic Prompt <https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md>`_ for line continuations in multiline prompts via two environment variables: ``$MULTILINE_PROMPT_PRE`` (e.g., ``\x01\x1b]133;P;k=c\x07\x02``), and ``$MULTILINE_PROMPT_POS`` (e.g., ``\x01\x1b]133;B\x07\x02``) that are inserted before/after each continuation line 'dots' block to mark input
+* <news item>
 
 **Changed:**
 
-* <news item>
+* Unset the default line continuation environment variables (``$MULTILINE_PROMPT_PRE`` and ``$MULTILINE_PROMPT_POS``) to allow differentiating between user setting an empty value and not setting anything
 
 **Deprecated:**
 
